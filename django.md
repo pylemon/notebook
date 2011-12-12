@@ -28,7 +28,9 @@ Django内置的filter，有一个是removetags，可以过滤多个指定的Html
 
 比如博客的内容摘要可能是html格式的，显示的时候，去掉a p span div标签，可以这样写
 
+```html
 	{{blog.content|removetags:"a p span div"}}
+```
 
 removetags函数会去掉指定的标签，注意 | 两边都不能留空格。
 
@@ -66,4 +68,5 @@ removetags函数会去掉指定的标签，注意 | 两边都不能留空格。
 				truncd_val = truncd_val[:truncd_val.rfind(" ")]
 			return  truncd_val + "..."
 		return value
+		
 		
