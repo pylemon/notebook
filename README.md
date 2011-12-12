@@ -7,7 +7,6 @@ Pylemon's Notebook
 
 # 目录
 
-## Python
-
-[PythonNotes/python.md](/pylemon/notebook/master/python.md).
+## Python [PythonNotes/python.md](/pylemon/notebook/blob/master/python.md).
+## Python [PythonNotes/django.md](/pylemon/notebook/blob/master/django.md).
 
