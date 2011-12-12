@@ -1,12 +1,12 @@
 Pylemon's Notebook
 ==================
 
-# 这里记录了学习中的一些笔记
-
 用这种方式记录一些笔记
 
 # 目录
 
-## Python [PythonNotes/python.md](/pylemon/notebook/blob/master/python.md).
-## Python [PythonNotes/django.md](/pylemon/notebook/blob/master/django.md).
+## Python
+
+### [Python/python.md](/pylemon/notebook/blob/master/python.md)
+### [Django/django.md](/pylemon/notebook/blob/master/django.md)
 
