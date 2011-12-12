@@ -4,20 +4,20 @@
 
 这样就需要在deamon script中初始化一个django environment
 	
-
-	# settings.py
-	from os.path import join
-	import os.path
-	settings_path = os.path.abspath(os.path.dirname(__file__))
+```python
+    # settings.py
+    from os.path import join
+    import os.path
+    settings_path = os.path.abspath(os.path.dirname(__file__))
 
 
     # deamon.py
-	import sys
-	import settings
-	from django.core.management import setup_environ
-	sys.path.append(settings.settings_path)
-	setup_environ(settings)
-
+    import sys
+    import settings
+    from django.core.management import setup_environ
+    sys.path.append(settings.settings_path)
+    setup_environ(settings)
+```
 
 这样就可以在deamon中为所欲为了。哈哈。
 
