@@ -10,13 +10,3 @@
 
 scp username@servername:/dir/filename ./file
 
-
-### 编译安装 ###
-
-#### configure errors ####
-
-1. *./configure* 提示 `No package 'zlib' found`      
-	`$ sudo apt-get install zlib1g-dev`
-
-2. *./configure* 提示 `No package 'gtk+-2.0' found`    
-	`$ sudo apt-get install libgtk2.0-dev`
