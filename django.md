@@ -1,4 +1,4 @@
-### django在命令行下执行的脚本使用ORM ###
+### tips django在命令行下执行的脚本使用ORM ###
 
 项目中遇到一个东西需要写一个deamon来处理，需要在deamon脚本中使用到djangoORM来操作数据库，
 
@@ -22,7 +22,7 @@
 这样就可以在deamon中为所欲为了。哈哈。
 
 	
-### 在django模版渲染中过滤HTML标签 ###
+### tips 在django模版渲染中过滤HTML标签 ###
 
 Django内置的filter，有一个是removetags，可以过滤多个指定的Html标签，
 
@@ -35,7 +35,7 @@ Django内置的filter，有一个是removetags，可以过滤多个指定的Html
 removetags函数会去掉指定的标签，注意 | 两边都不能留空格。
 
 
-### django模版中的截断过滤器 ###
+### tips django模版中的截断过滤器 ###
 
 想输出一段摘要，需要用到截断过滤器，查阅了官方文档发现*truncatewords*方法
 
@@ -70,3 +70,14 @@ removetags函数会去掉指定的标签，注意 | 两边都不能留空格。
 		return value
 		
 		
+
+### tips 使用ipdb调试django 
+ipdb是pdb的加强版, 有类似于ipython的自动补全功能, 在Django中使用ipdb进行调试只需要在需要下断点的地方插入以下内容
+```python
+import ipdb
+ipdb.set_trace()
+```  
+常用命令
+h -> help
+a -> argument
+

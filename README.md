@@ -1,30 +1,67 @@
 Pylemon's Notebook
 ==================
 
-我的一些笔记,放到这里以免丢失.
+学习笔记, 存档.
 
-# 目录
+# 目录  
 
-## 程序语言
 
-### Python笔记
+## 编程语言学习  
+
+### Python  
  
 * [python.md](/pylemon/notebook/blob/master/python.md)
 
-### Django笔记
+### Django  
 
 * [django.md](/pylemon/notebook/blob/master/django.md)
 
-### Elisp笔记
+### JavaScript
+
+* [javascript.md](/pylemon/notebook/blob/master/javascript.md)
+
+### Elisp  
 
 * [elisp.md](/pylemon/notebook/blob/master/elisp.md)
 
-### Markdown笔记
+### Ruby  
+
+* [ruby.md](/pylemon/notebook/blob/master/ruby.md)
+
+### Nodejs  
+
+* [nodejs.md](/pylemon/notebook/blob/master/nodejs.md)
+
+
+## 数据库
+
+### MySQL
+
+* [mysql.md](/pylemon/notebook/blob/master/mysql.md)
+
+### MongoDB
+
+* [mongodb.md](/pylemon/notebook/blob/master/mongodb.md)
+
+
+
+## 操作系统
+
+### ubuntu
+
+* [ubuntu.md](/pylemon/notebook/blob/master/ubuntu.md)
+
+### awesome
+
+* [awesome.md](/pylemon/notebook/blob/master/awesome.md)
+
+
+## 工具
+
+### markdown  
 
 * [markdown.md](/pylemon/notebook/blob/master/markdown.md)
 
-### 其他
+### git  
 
 * [git.md](/pylemon/notebook/blob/master/git.md)
-
-* [ubuntu.md](/pylemon/notebook/blob/master/ubuntu.md)
