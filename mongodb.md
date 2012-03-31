@@ -113,3 +113,182 @@ blog.author
 有这些要求是因为 database 最终会以一个文件的形式存在与系统中.  
 
 另外 database 还保留了几个 内置的 database name : admin, local, config
+
+
+# PyMongo
+
+使用 pymongo 可以很方便的通过 python 来访问 MongoDB
+
+### 安装
+
+```
+$ sudo pip install pymongo  
+```
+
+如果在 python shell 中 import pymongo 没有异常 则安装成功
+
+### 建立连接
+
+```
+>>> from pymongo import Connection
+>>> connection = Connection('localhost', 27017)
+```
+
+Connection 接受两个参数 主机地址 和 端口
+
+### 访问数据库
+
+使用下面两种方法都可以访问到相应的 数据库
+
+```
+>>> db = connection.test_database
+>>> db = connection['test-database']
+```
+
+推荐使用后一种方法, 因为如果名称中有运算符. 第一种方法将无法使用
+
+
+### 访问数据集(collection)
+
+同样的 可以使用两种方法访问 collection
+
+```
+>>> collection = db.test_collection
+>>> collection = db['test-collection']
+```
+
+使用 *collection_name()* 方法, 可以查看当前 database 下所有的 collection 名
+
+```
+>>> db.collection_names()
+[u'posts', u'system.indexes']
+```
+
+
+### 文档(document)增删改查
+
+*插入数据*
+
+MongoDB 采用 JSON 格式存储 document, 在 python 中可以先将数据打包成字典的形式,   
+这里需要注意, MongoDB 支持原生的 python datetime 对象, 这里的时间会自动转换成 MongoDB 支持的形式.
+
+```
+>>> import datetime
+>>> post = {"author": "Mike",
+...         "text": "My first blog post!",
+...         "tags": ["mongodb", "python", "pymongo"],
+...         "date": datetime.datetime.utcnow()}
+```
+
+使用 *insert()* 方法来插入数据
+
+插入单条数据
+
+```
+>>> posts = db.posts
+>>> posts.insert(post)
+ObjectId('...')
+```
+插入数据成功后会返回一个 ObjectId 如果失败会抛出异常
+
+一次插入多条数据
+
+```
+>>> new_posts = [{"author": "Mike",
+...               "text": "Another post!",
+...               "tags": ["bulk", "insert"],
+...               "date": datetime.datetime(2009, 11, 12, 11, 14)},
+...              {"author": "Eliot",
+...               "title": "MongoDB is fun",
+...               "text": "and pretty easy too!",
+...               "date": datetime.datetime(2009, 11, 10, 10, 45)}]
+>>> posts.insert(new_posts)
+[ObjectId('...'), ObjectId('...')]
+```
+直接传入一个 JSON 格式的数据, 插入成功会返回一个 ObjectId 的 list
+
+
+*查询数据*
+
+使用 *find_one()* 查询数据, 可以带参数(字典, 支持 MongoDB 中的复杂查询方法), 如果不带参数, 将返回最近被插入的一个 document.
+
+```
+>>> posts.find_one({"author": "Mike"})
+{u'date': datetime.datetime(...), u'text': u'My first blog post!', u'_id': ObjectId('...'), u'author': u'Mike', u'tags': [u'mongodb', u'python', u'pymongo']}
+```
+
+使用 *find()* 查询多条数据
+
+```
+>>> for post in posts.find():
+...   post
+...
+{u'date': datetime.datetime(...), u'text': u'My first blog post!', u'_id': ObjectId('...'), u'author': u'Mike', u'tags': [u'mongodb', u'python', u'pymongo']}
+{u'date': datetime.datetime(2009, 11, 12, 11, 14), u'text': u'Another post!', u'_id': ObjectId('...'), u'author': u'Mike', u'tags': [u'bulk', u'insert']}
+{u'date': datetime.datetime(2009, 11, 10, 10, 45), u'text': u'and pretty easy too!', u'_id': ObjectId('...'), u'author': u'Eliot', u'title': u'MongoDB is fun'}
+```
+
+同样的 find 可以接受参数, 或者是 MongoDB 的复杂查询
+
+*复杂查询*
+
+下面的例子, 将查询出所有发表日期 早于("$lt") 2009年11月12日12点 的 post , 
+注意纠结的括号. 还有, "$lt" 一定要是字符串.
+
+```
+>>> d = datetime.datetime(2009, 11, 12, 12)
+>>> for post in posts.find({"date": {"$lt": d}}).sort("author"):
+...   post
+...
+{u'date': datetime.datetime(2009, 11, 10, 10, 45), u'text': u'and pretty easy too!', u'_id': ObjectId('...'), u'author': u'Eliot', u'title': u'MongoDB is fun'}
+{u'date': datetime.datetime(2009, 11, 12, 11, 14), u'text': u'Another post!', u'_id': ObjectId('...'), u'author': u'Mike', u'tags': [u'bulk', u'insert']}
+```
+
+
+*count()* 方法
+
+count 会返回查询结果中的对象的数量. 可以直接使用在 find() 之后
+
+```
+>>> posts.find({"author": "Mike"}).count()
+2
+```
+
+_存储到 MongoDB 中的 String 会被自动转换为 Unicode 编码_
+
+
+*删除数据*
+*remove()* 方法
+
+
+*update数据*
+*update()* 方法
+
+
+### 建立索引加快查询速度
+
+```
+>>> posts.find({"date": {"$lt": d}}).sort("author").explain()["cursor"]
+u'BasicCursor'
+>>> posts.find({"date": {"$lt": d}}).sort("author").explain()["nscanned"]
+3
+```
+
+nscanned 说明 这次查询一共搜索了3条记录
+
+
+下面我们来给数据库加个排序索引
+
+```
+>>> from pymongo import ASCENDING, DESCENDING
+>>> posts.create_index([("date", DESCENDING), ("author", ASCENDING)])
+u'date_-1_author_1'
+>>> posts.find({"date": {"$lt": d}}).sort("author").explain()["cursor"]
+u'BtreeCursor date_-1_author_1'
+>>> posts.find({"date": {"$lt": d}}).sort("author").explain()["nscanned"]
+2
+```
+
+将 posts 按照 date 降序, author 升序 进行索引, 现在如果查询同样的内容, 
+可以发现, mongodb 只搜索了2条 document 就得到了结果
+
