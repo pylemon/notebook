@@ -81,3 +81,48 @@ ipdb.set_trace()
 h -> help
 a -> argument
 
+
+
+### form 初始化值
+
+有两种方式为form 提供初始化值
+
+在创建form对象时::
+
+	form = JournalForm(initial={'tank': 123})
+
+或者在定义form时::
+
+	tank = forms.IntegerField(widget=forms.HiddenInput(), initial=123)
+
+
+### ChoiceField 选项初始化
+
+例如要生成一个 1985-2012年的 ChoiceField 可以这么做::
+
+	choices = [(u'', u'Select Year')]
+	choices.extend([(unicode(year), unicode(year)) for year in range(1985, 2013)])
+	graduation = forms.ChoiceField(choices=choices)
+
+
+### ChoiceField 自定义 blankoption 默认值内容
+
+django 生成的 ChoiceField 会带有一个 -------- 的默认值, 它的 value 是 "" , 我们可以自定义这个值, 让提示更加友好
+
+	class ThingForm(models.ModelForm):
+		class Meta:
+			model = Thing
+		def __init__(self, *args, **kwargs):
+			super(ThingForm, self).__init__(*args, **kwargs)
+			self.fields['year'].empty_label = _('Select Year...')
+
+当然也可以直接在定义 form 的时候就加上这个值
+
+	Verb = ModelChoiceField(Verb.objects.all(), empty_label=None)
+
+
+### 如果一个 view 中要处理多个 form 最好使用 prifx 参数
+
+	form = MyFormClass(prefix='some_prefix')
+
+	form = MyFormClass(request.POST, prefix='some_prefix')
