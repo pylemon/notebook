@@ -9,8 +9,10 @@ Welcome to Notes's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
+   django.rst
+   emacs.rst
 
 
 Indices and tables
