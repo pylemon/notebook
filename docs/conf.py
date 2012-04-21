@@ -89,9 +89,9 @@ pygments_style = 'sphinx'
 
 # -- Options for HTML output ---------------------------------------------------
 
-sys.path.append(os.path.abspath('_themes'))
-html_theme_path = ['_themes']
-html_theme = 'bootstrap'
+# sys.path.append(os.path.abspath('_themes'))
+# html_theme_path = ['_themes']
+# html_theme = 'bootstrap'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
