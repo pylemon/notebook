@@ -7,6 +7,7 @@
    django.rst
    emacs.rst
    git.rst
+   keys.rst
 
 
 相关链接
