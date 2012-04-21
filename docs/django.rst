@@ -1,5 +1,5 @@
 =============
- django 笔记
+ Django 笔记
 =============
 
 django form 技巧

@@ -8,7 +8,7 @@ Contents:
 
    django.rst
    emacs.rst
-
+   git.rst
 
 
 Indices and tables
