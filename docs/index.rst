@@ -1,7 +1,5 @@
-Welcome to Notes's documentation!
-=================================
-
-Contents:
+我的笔记
+========
 
 .. toctree::
    :maxdepth: 3
@@ -11,8 +9,8 @@ Contents:
    git.rst
 
 
-Indices and tables
-==================
+相关链接
+========
 
 * :ref:`genindex`
 * :ref:`modindex`

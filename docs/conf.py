@@ -40,7 +40,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Notes'
+project = u'笔记'
 copyright = u'2012, pyLemon'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -64,7 +64,7 @@ release = '1.0'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ['_build','_theme']
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
@@ -187,7 +187,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Notes.tex', u'Notes Documentation',
+  ('index', 'Notes.tex', u'笔记',
    u'pyLemon', 'manual'),
 ]
 
@@ -217,7 +217,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'notes', u'Notes Documentation',
+    ('index', '笔记', u'笔记',
      [u'pyLemon'], 1)
 ]
 
@@ -231,7 +231,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Notes', u'Notes Documentation',
+  ('index', '笔记', u'笔记',
    u'pyLemon', 'Notes', 'One line description of project.',
    'Miscellaneous'),
 ]
