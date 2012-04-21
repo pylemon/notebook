@@ -8,8 +8,12 @@
 
 学习笔记, 使用 shpinx 创建.
 
-#TODO 创建 RTD 链接. 自动读取源文件编译 html.
+http://readthedocs.org/docs/pylemons-note/en/latest/
 
+
+#TODO
+[完成] 创建 RTD 链接. 自动读取源文件编译 html.
+[] 无法在 RTD 中设置自定义的 themes
 
 My Tool List
 ============
