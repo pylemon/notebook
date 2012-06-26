@@ -91,3 +91,8 @@ ipdb是pdb的加强版, 有类似于ipython的自动补全功能, 在Django中�
 	h -> help
 	a -> argument
 
+
+
+django doc translation
+======================
+
