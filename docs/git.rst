@@ -2,6 +2,44 @@
  Git 笔记
 ==========
 
+git log
+=======
+
+* 查看最近两次的提交内容 ::
+
+    git log -p -2
+
+* 查看提交的统计数据 ::
+
+    git log --stat
+
+* 查看最近两次的提交 ::
+
+    git log -n 2
+
+* 查看某个日期之前/之后的提交 after(since) & before(until) ::
+
+    git log --after 2.weeks
+    git log --before 2.years
+
+* 查看某个作者或者提交者的提交日志作者和提交者还是有一点区别的 ::
+
+    git log --author pyLemon
+    git log --committer pyLemon
+
+* 在提交的 log 内容中 grep 查找 ::
+
+    git log --grep 'change'
+
+* gitk 图形化的 git log 工具
+
+
+git commit
+==========
+
+
+
+
 在 github 中使用 service hooks
 ==============================
 
