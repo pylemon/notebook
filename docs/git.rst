@@ -37,7 +37,15 @@ git log
 git commit
 ==========
 
+* 更改上一次的提交内容
+  
+  有时候在做了 commit 操作后，发现上一次的提交内容有问题，有部分文件忘了提交。这种情况可以使用 --amend 来更改上一次的提交
+  一个典型的使用场景，将 readme.md 添加到上一次提交中去。 ::
+    
+    git add readme.md
+    git ci --amend
 
+  这样就可以将 readme.md 合并到上一次的提交中去了
 
 
 在 github 中使用 service hooks
