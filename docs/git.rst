@@ -16,6 +16,7 @@ git log
 * 查看最近两次的提交 ::
 
     git log -n 2
+    git log -2
 
 * 查看某个日期之前/之后的提交 after(since) & before(until) ::
 
@@ -45,7 +46,55 @@ git commit
     git add readme.md
     git ci --amend
 
-  这样就可以将 readme.md 合并到上一次的提交中去了
+  这样就可以将 readme.md 合并到上一次的提交中去了，最终只产生一个提交记录。
+
+
+git reset
+=========
+
+* 还原已经提交的文件
+
+  如果一个文件已经 add 到 stage 中，而我们发现它又是不需要的。这时可以采用 reset 命令，重置它。::
+
+    git add .   
+    git reset HEAD readme.md
+
+  这样这个文件就会取消他的 stage 状态。
+
+
+git checkout
+============
+
+* 放弃修改，还原文件
+
+  如果一个文件想要还原到他修改前的样子。可以使用 checkout 命令。::
+
+    git checkout -- readme.md
+
+  这个命令会放弃所有作出的修改，将文件还原成变更前的状态。
+
+git remote
+==========
+
+* 查看远程分支 ::
+  
+    liwei@liwei-E40:~/Notes(master⚡) » git remote -v
+    origin	git@github.com:pylemon/notebook.git (fetch)
+    origin	git@github.com:pylemon/notebook.git (push)
+
+* 添加一个远程的源
+  要添加一个新的远程仓库，可以指定一个简单的名字，以便将来引用，运行 git remote add [shortname] [url] ::
+
+    git remote add pb git://github.com/paulboone/ticgit.git
+
+  通过 git fetch pb 可以从这个分支上获取到更新
+
+git fetch
+=========
+
+* 从远程仓库获取数据 ::
+
+    git fetch [remote-name]
 
 
 在 github 中使用 service hooks
