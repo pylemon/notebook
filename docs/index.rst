@@ -5,6 +5,7 @@
    :maxdepth: 3
 
    django.rst
+   sicp.rst
    emacs.rst
    git.rst
    keys.rst
