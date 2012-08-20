@@ -4,10 +4,10 @@
 .. toctree::
    :maxdepth: 3
 
-   django.rst
    sicp.rst
-   emacs.rst
+   django.rst
    git.rst
+   emacs.rst
    keys.rst
 
 
@@ -17,4 +17,3 @@
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
