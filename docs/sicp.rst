@@ -175,4 +175,7 @@ lisp 采用的是应用序求值，部分原因是这样可以避免对部分表
     <unnamed port>:21:11: Throw to key `vm-error' with args `(vm-run "VM: Stack overflow" ())'.
     Entering a new prompt.  Type `,bt' for a backtrace or `,q' to continue.
 
-得到了上面的错误信息。backtrace后发现貌似陷入了无限递归。
+得到了上面的错误信息。backtrace后发现貌似陷入了无限递归。因为在new-if中，
+接下来的参数都会作为new-if调用的参数被求值，从而陷入了无限递归；而使用
+if的话，处理接下来的“参数”（之所以打引号是因为Lisp默认的if应该不算是
+函数调用，算是个语句），会先对第一个参数求值而后决定进入哪个过程分支。
