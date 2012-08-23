@@ -10,9 +10,12 @@
 http://readthedocs.org/docs/pylemons-note/en/latest/
 
 * TODO list
-[X] 创建 RTD 链接. 自动读取源文件编译 html.
-[ ] 无法在 RTD 中设置自定义的 themes
-[ ] 为笔记加入 disgus 第三方评论系统
+
+[X] 创建 RTD 链接. 自动读取源文件编译 html.  
+
+[ ] 无法在 RTD 中设置自定义的 themes  
+
+[ ] 为笔记加入 disgus 第三方评论系统  
 
 
 My Tool List
