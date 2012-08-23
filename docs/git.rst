@@ -2,6 +2,51 @@
  Git 笔记
 ==========
 
+
+GitHub 开发流程
+===============
+
+为 GitHub上的项目提交 patch 的基本流程
+
+初始化设置
+----------
+
+1. 在 GitHub 上 Fork 项目（点击 Fork 按钮）
+2. Clone 项目代码到电脑上 : git clone git@github.com:«自己的github帐号»/«项目名称».git
+3. 进入项目目录: cd «项目名称»
+4. 设置源版本库(remote upstream): git remote add -f upstream git://github.com/«你folk的github帐号»/«项目名称».git
+
+增加一个功能
+------------
+
+1. 为新功能新建一个分支: git checkout -b my_new_feature
+2. 在新建的分支上工作，开发，提交。
+
+新建一个分支并不是必须的，但是这会让你更容易在合并功能到主分支之后删除掉本地你的开发分支。方便的与主分支中真正的最新版本做diff，并且能够提交多个针对不同功能的 pull requerst
+
+提交更新
+--------
+
+1. 将本地分支 Push 到 GitHub 上: git push origin my_new_feature
+2. 生成 pull request: 在 GitHub 上点击 Pull Resquest 按钮
+
+常用命令
+--------
+
+如果在你修改完新功能后，远端的主分支上已经发生了很多修改，你应该在这些新的修改上 `回放` 你本地作出的修改，这个应当用到 git rebase 命令。::
+
+    git fetch upstream
+    git rebase upstream/master
+
+fetch 会将远端主分支的代码取回到本地，在做这个操作前需要确保本地没有尚未 commit 的内容。如果确有，可以用 git stash save 来暂存起来，稍后用 git stash pop 来弹出暂存的内容。
+使用 fetch rebase 的操作流程有一个明显优于 merge 的优势， 它会给出一个非常清晰的提交图，并且他会 `修剪` 掉任何同时发生在你本地和远端源上的提交。
+
+You can use -i with rebase for an “interactive” rebase. This allows you to drop, re-arrange, merge, and reword commits, e.g.:
+你可以使用 -i 参数，在 rebase 的过程中可以用到交互式模式，这允许你删除，修改，合并或者回滚你的提交，像这样 ::
+
+    git rebase -i upstream/master
+
+
 git log
 =======
 
@@ -39,10 +84,10 @@ git commit
 ==========
 
 * 更改上一次的提交内容
-  
+
   有时候在做了 commit 操作后，发现上一次的提交内容有问题，有部分文件忘了提交。这种情况可以使用 --amend 来更改上一次的提交
   一个典型的使用场景，将 readme.md 添加到上一次提交中去。 ::
-    
+
     git add readme.md
     git ci --amend
 
@@ -56,7 +101,7 @@ git reset
 
   如果一个文件已经 add 到 stage 中，而我们发现它又是不需要的。这时可以采用 reset 命令，重置它。::
 
-    git add .   
+    git add .
     git reset HEAD readme.md
 
   这样这个文件就会取消他的 stage 状态。
@@ -77,7 +122,7 @@ git remote
 ==========
 
 * 查看远程分支 ::
-  
+
     liwei@liwei-E40:~/Notes(master⚡) » git remote -v
     origin	git@github.com:pylemon/notebook.git (fetch)
     origin	git@github.com:pylemon/notebook.git (push)
@@ -107,5 +152,3 @@ git fetch
 在 `github` 项目的 `admin` 页面. 找到 `Service hooks` 选中 `ReadTheDocs` , `active` , 然后 `update`
 
 这样以后在每次提交新的笔记后, `RTD` 就会自动的去 `github` 取最新的代码, 然后重新 `build` html页面了.
-
-
