@@ -2,11 +2,67 @@
  Django 笔记
 =============
 
-django form 技巧
-================
+django模版中的截断过滤器
+========================
+
+想输出一段摘要，需要用到截断过滤器，查阅了官方文档发现*truncatewords*方法
+
+但是这个方法只能按照词【空格】 来截断需要的内容。不能按照字符长度截断。官方竟然没有提供相关的功能。::
+
+	For example:
+
+	{{ value|truncatewords:2 }}
+	If value is "Joel is a slug", the output will be "Joel is ...".
+
+	Newlines within the string will be removed.
+
+	{{ value|truncatewords_html:2 }}
+	If value is "<p>Joel is a slug</p>", the output will be "<p>Joel is ...</p>".
+
+谷歌一下后发现stackoverflow上有解决办法。下面是一个取巧的办法。::
+
+	{{ value|slice:"5" }}{% if value|length > 5 %}...{% endif %}
+
+一行代码就搞定了。很方便。另外一个办法就是创建一个自定义的template filter ::
+
+	from django import template
+	register = template.Library()
+
+	@register.filter("truncate_chars")
+	def truncate_chars(value, max_length):
+		if len(value) > max_length:
+			truncd_val = value[:max_length]
+			if not len(value) == max_length+1 and value[max_length+1] != " ":
+				truncd_val = truncd_val[:truncd_val.rfind(" ")]
+			return  truncd_val + "..."
+		return value
+
+
+django在命令行下执行的脚本使用ORM
+=================================
+
+项目中遇到一个东西需要写一个deamon来处理，需要在deamon脚本中使用到djangoORM来操作数据库，
+
+这样就需要在deamon script中初始化一个django environment ::
+
+    # settings.py
+    from os.path import join
+    import os.path
+    settings_path = os.path.abspath(os.path.dirname(__file__))
+
+    # deamon.py
+    import sys
+    import settings
+    from django.core.management import setup_environ
+    sys.path.append(settings.settings_path)
+    setup_environ(settings)
+
+
+这样就可以在deamon中为所欲为了。哈哈。
+
 
 form 初始化值 initial 参数的使用
---------------------------------
+================================
 
 有两种方式为form 提供初始化值
 
@@ -20,7 +76,7 @@ form 初始化值 initial 参数的使用
 
 
 ChoiceField 选项初始化
-----------------------
+======================
 
 例如要生成一个 1985-2012年的 ChoiceField 可以这么做::
 
@@ -30,7 +86,7 @@ ChoiceField 选项初始化
 
 
 ChoiceField 自定义 blankoption 默认值内容
------------------------------------------
+=========================================
 
 django 生成的 ChoiceField 会带有一个 -------- 的默认值, 它的 value 是 "" , 我们可以自定义这个值, 让提示更加友好::
 
@@ -46,8 +102,8 @@ django 生成的 ChoiceField 会带有一个 -------- 的默认值, 它的 value
 	Verb = ModelChoiceField(Verb.objects.all(), empty_label=None)
 
 
-如果一个 view 中要处理多个 form 最好使用 prifx 参数
----------------------------------------------------
+如果一个 view 中要处理多个 form 最好使用 prfix 参数
+===================================================
 
 prifx 可以在view中区分不同的 form 方便分别处理::
 
@@ -55,11 +111,8 @@ prifx 可以在view中区分不同的 form 方便分别处理::
 	form = MyFormClass(request.POST, prefix='some_prefix')
 
 
-django template 技巧
-====================
-
 在django模版渲染中过滤HTML标签
-------------------------------
+==============================
 
 Django内置的filter，有一个是removetags，可以过滤多个指定的Html标签，
 
@@ -73,12 +126,9 @@ removetags函数会去掉指定的标签，注意 | 两边都不能留空格。
 
 
 
-django debug 技巧
-=================
-
 使用 ipdb 调试 django
----------------------
-		
+=====================
+
 ipdb是pdb的加强版, 有类似于ipython的自动补全功能, 在Django中使用ipdb进行调试只需要在需要下断点的地方插入以下内容::
 
 	import ipdb
@@ -90,9 +140,3 @@ ipdb是pdb的加强版, 有类似于ipython的自动补全功能, 在Django中�
 
 	h -> help
 	a -> argument
-
-
-
-django doc translation
-======================
-
