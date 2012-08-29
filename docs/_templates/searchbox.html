@@ -1,6 +1,6 @@
 {%- if pagename != "search" %}
 <form class="pull-left" action="{{ pathto('search') }}" method="get">
-  <input type="text" name="q" placeholder="Search" />
+  <input type="text" name="q" placeholder="Search" onfocus="if(this.placeholder=='Search'){this.placeholder='';}" onblur="if(this.placeholder==''){this.placeholder='Search';}" />
   <input type="hidden" name="check_keywords" value="yes" />
   <input type="hidden" name="area" value="default" />
 </form>
