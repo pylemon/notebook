@@ -12,9 +12,11 @@ GitHub 开发流程
 ----------
 
 1. 在 GitHub 上 Fork 项目（点击 Fork 按钮）
-2. Clone 项目代码到电脑上 : git clone git@github.com:«自己的github帐号»/«项目名称».git
+2. Clone 项目代码到电脑上 : git clone git@github.com:«自己的github帐号
+»/«项目名称».git
 3. 进入项目目录: cd «项目名称»
-4. 设置源版本库(remote upstream): git remote add -f upstream git://github.com/«你folk的github帐号»/«项目名称».git
+4. 设置源版本库(remote upstream): git remote add -f upstream
+git://github.com/«你folk的github帐号»/«项目名称».git
 
 增加一个功能
 ------------
@@ -22,7 +24,9 @@ GitHub 开发流程
 1. 为新功能新建一个分支: git checkout -b my_new_feature
 2. 在新建的分支上工作，开发，提交。
 
-新建一个分支并不是必须的，但是这会让你更容易在合并功能到主分支之后删除掉本地你的开发分支。方便的与主分支中真正的最新版本做diff，并且能够提交多个针对不同功能的 pull requerst
+新建一个分支并不是必须的，但是这会让你更容易在合并功能到主分支之后删除
+掉本地你的开发分支。方便的与主分支中真正的最新版本做diff，并且能够提交
+多个针对不同功能的 pull requerst
 
 提交更新
 --------
@@ -33,16 +37,22 @@ GitHub 开发流程
 常用命令
 --------
 
-如果在你修改完新功能后，远端的主分支上已经发生了很多修改，你应该在这些新的修改上 `回放` 你本地作出的修改，这个应当用到 git rebase 命令。::
+如果在你修改完新功能后，远端的主分支上已经发生了很多修改，你应该在这些
+新的修改上 `回放` 你本地作出的修改，这个应当用到 git rebase 命令。::
 
     git fetch upstream
     git rebase upstream/master
 
-fetch 会将远端主分支的代码取回到本地，在做这个操作前需要确保本地没有尚未 commit 的内容。如果确有，可以用 git stash save 来暂存起来，稍后用 git stash pop 来弹出暂存的内容。
-使用 fetch rebase 的操作流程有一个明显优于 merge 的优势， 它会给出一个非常清晰的提交图，并且他会 `修剪` 掉任何同时发生在你本地和远端源上的提交。
+fetch 会将远端主分支的代码取回到本地，在做这个操作前需要确保本地没有尚
+未 commit 的内容。如果确有，可以用 git stash save 来暂存起来，稍后用
+git stash pop 来弹出暂存的内容。使用 fetch rebase 的操作流程有一个明显
+优于 merge 的优势， 它会给出一个非常清晰的提交图，并且他会 `修剪` 掉任
+何同时发生在你本地和远端源上的提交。
 
-You can use -i with rebase for an “interactive” rebase. This allows you to drop, re-arrange, merge, and reword commits, e.g.:
-你可以使用 -i 参数，在 rebase 的过程中可以用到交互式模式，这允许你删除，修改，合并或者回滚你的提交，像这样 ::
+You can use -i with rebase for an “interactive” rebase. This allows
+you to drop, re-arrange, merge, and reword commits, e.g.:你可以使用 -i
+参数，在 rebase 的过程中可以用到交互式模式，这允许你删除，修改，合并或
+者回滚你的提交，像这样 ::
 
     git rebase -i upstream/master
 
@@ -106,7 +116,7 @@ You can use -i with rebase for an “interactive” rebase. This allows you to d
 
 查看每一次版本的大致变动情况
 
-项目版本的更新细节:
+项目版本的更新细节::
 
     $ git show dfb02e6e4f2f7b573337763e5c0013802e392818
 
@@ -125,6 +135,9 @@ You can use -i with rebase for an “interactive” rebase. This allows you to d
     $ git show HEAD^^ # 查看 HEAD 的祖父版本更新细节
     $ git show HEAD~4 # 查看 HEAD 的祖父之祖父的版本更新细节
 
+`git show` 可以跟一个 --name-status 参数，可以显示某一次提交更改过的文
+件列表。
+
 
 还原代码库
 ----------
@@ -133,15 +146,18 @@ You can use -i with rebase for an “interactive” rebase. This allows you to d
 
 将代码库还原至某个版本
 
-git-reset 命令有三个选项:--mixed 、 --soft 和 --hard 。我们在日常使用中仅使用前两个选项;
+git-reset 命令有三个选项:--mixed 、 --soft 和 --hard 。我们在日常使用中
+仅使用前两个选项;
 
-第三个选项由于杀伤力太大,容易损坏项目仓库,需谨慎使用。
+第三个选项由于杀伤力太大,容易损坏项目仓库,需谨慎使用。::
 
---mixed 是 git-reset 的默认选项,它的作用是重置索引内容,将其定位到指定的项目版本,而不改变你的
+    --mixed 是 git-reset 的默认选项,它的作用是重置索引内容,将其定位到指定的
+            项目版本,而不改变你的
 
-工作树中的所有内容,只是提示你有哪些文件还未更新。
+工作树中的所有内容,只是提示你有哪些文件还未更新。::
 
---soft 选项既不触动索引的位置,也不改变工作树中的任何内容,但是会要求它们处于一个良好的次序之内。
+    --soft 选项既不触动索引的位置,也不改变工作树中的任何内容,但是会要求它们
+           处于一个良好的次序之内。
 
 该选项会保留你在工作树中的所有更新并使之处于待提交状态。
 
@@ -154,11 +170,13 @@ git-reset 命令有三个选项:--mixed 、 --soft 和 --hard 。我们在日常
     $ cd work
     $ git clone lyr@192.168.0.7:~/work/m2ge m2ge
 
-通过ssh访问远端的某个git目录 将工作树复制到本地，如果不指定文件夹则和远端一致。
+通过ssh访问远端的某个git目录 将工作树复制到本地，如果不指定文件夹则和远
+端一致。
 
 ssh 协议： *账户@IP:路径*
 
-clone之后 就在本地创建了一个工作目录，所有的提交删除工作都可以在本地进行，不需要频繁操作主分支
+clone之后 就在本地创建了一个工作目录，所有的提交删除工作都可以在本地进
+行，不需要频繁操作主分支
 
 项目开发
 ~~~~~~~~
@@ -203,7 +221,7 @@ git的代码是分布式管理的。所以每个机器上都保存了完整的�
 **没有完成merge的分支是无法直接删除的，需要用到-D参数强制删除**
 
 
-git 常用命令
+GIT 常用命令
 ============
 
 git log
@@ -244,8 +262,9 @@ git commit
 
 * 更改上一次的提交内容
 
-  有时候在做了 commit 操作后，发现上一次的提交内容有问题，有部分文件忘了提交。这种情况可以使用 --amend 来更改上一次的提交
-  一个典型的使用场景，将 readme.md 添加到上一次提交中去。 ::
+  有时候在做了 commit 操作后，发现上一次的提交内容有问题，有部分文件忘
+  了提交。这种情况可以使用 --amend 来更改上一次的提交一个典型的使用场景，
+  将 readme.md 添加到上一次提交中去。 ::
 
     git add readme.md
     git ci --amend
@@ -258,7 +277,8 @@ git reset
 
 * 还原已经提交的文件
 
-  如果一个文件已经 add 到 stage 中，而我们发现它又是不需要的。这时可以采用 reset 命令，重置它。::
+  如果一个文件已经 add 到 stage 中，而我们发现它又是不需要的。这时可以
+  采用 reset 命令，重置它。::
 
     git add .
     git reset HEAD readme.md
@@ -286,8 +306,8 @@ git remote
     origin	git@github.com:pylemon/notebook.git (fetch)
     origin	git@github.com:pylemon/notebook.git (push)
 
-* 添加一个远程的源
-  要添加一个新的远程仓库，可以指定一个简单的名字，以便将来引用，运行 git remote add [shortname] [url] ::
+* 添加一个远程的源要添加一个新的远程仓库，可以指定一个简单的名字，以便
+  将来引用，运行 git remote add [shortname] [url] ::
 
     git remote add pb git://github.com/paulboone/ticgit.git
 
@@ -314,7 +334,8 @@ git cherry-pick
      * 4b48192 - add 1 (25 seconds ago) <pylemon>
      * 2041623 - (origin/master, origin/HEAD, master) fixes auto-complete (10 hours ago) <pylemon>
 
-这时候我发现 add 1 这个提交是不需要的，之需要将后2次合并进主分支即可。可以这么操作::
+这时候我发现 add 1 这个提交是不需要的，之需要将后2次合并进主分支即可。
+可以这么操作::
 
      liwei@pylemon ⮀ ~/emacs ⮀ ⭠ master ⮀ git cherry-pick 4b48192..33eef50
      [master 32d478e] add 2
@@ -334,18 +355,23 @@ git cherry-pick
      |/
      * 2041623 - (origin/master, origin/HEAD) fixes auto-complete (10 hours ago) <pylemon>
 
-可以看到，执行 `cherry-pick` 后， git 将指定的 commit (不含第一个，包含最后一个) 应用到了 当前的 master 分支。
-执行完之后，可以删除掉 `fixbug` 分支。这样就可以很方便的从一个分支里面选取一部分提交合并到主分支里面去了。当然同样也会遇到
-需要merge的情况。和merege一样操作即可。
+可以看到，执行 `cherry-pick` 后， git 将指定的 commit (不含第一个，包含
+最后一个) 应用到了 当前的 master 分支。执行完之后，可以删除掉 `fixbug`
+分支。这样就可以很方便的从一个分支里面选取一部分提交合并到主分支里面去
+了。当然同样也会遇到需要merge的情况。和merege一样操作即可。
 
 
 在 github 中使用 service hooks
 ==============================
 
-本站使用 `shpinx` 自动生成 html 格式的笔记文件. 由于采用了 http://readthedocs.org/ 的服务,
+本站使用 `shpinx` 自动生成 html 格式的笔记文件. 由于采用了
+http://readthedocs.org/ 的服务,
 
-`RTD` 支持 `service hooks` 服务, 可以直接在 `github` 中设置下, 这样在 `push` 的时候, 自动重新 build 文档. 确实方便.
+`RTD` 支持 `service hooks` 服务, 可以直接在 `github` 中设置下, 这样在
+`push` 的时候, 自动重新 build 文档. 确实方便.
 
-在 `github` 项目的 `admin` 页面. 找到 `Service hooks` 选中 `ReadTheDocs` , `active` , 然后 `update`
+在 `github` 项目的 `admin` 页面. 找到 `Service hooks` 选中
+`ReadTheDocs` , `active` , 然后 `update`
 
-这样以后在每次提交新的笔记后, `RTD` 就会自动的去 `github` 取最新的代码, 然后重新 `build` html页面了.
+这样以后在每次提交新的笔记后, `RTD` 就会自动的去 `github` 取最新的代码,
+然后重新 `build` html页面了.
