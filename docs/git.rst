@@ -301,6 +301,44 @@ git fetch
     git fetch [remote-name]
 
 
+git cherry-pick
+---------------
+
+* cherry-pick 的作用是在当前分支上应用某一个提交，在合并的时候特别有用。
+
+当前在 fixbug 分支上，做了3次修改并提交到本地 ::
+
+     liwei@pylemon ⮀ ~/emacs ⮀ ⭠ fixbug ⮀ gla
+     * 33eef50 - (HEAD, fixbug) add3 (2 seconds ago) <pylemon>
+     * 41fdc68 - add 2 (17 seconds ago) <pylemon>
+     * 4b48192 - add 1 (25 seconds ago) <pylemon>
+     * 2041623 - (origin/master, origin/HEAD, master) fixes auto-complete (10 hours ago) <pylemon>
+
+这时候我发现 add 1 这个提交是不需要的，之需要将后2次合并进主分支即可。可以这么操作::
+
+     liwei@pylemon ⮀ ~/emacs ⮀ ⭠ master ⮀ git cherry-pick 4b48192..33eef50
+     [master 32d478e] add 2
+      0 files changed
+       create mode 100644 2
+     [master e488f01] add3
+      0 files changed
+       create mode 100644 3
+     liwei@pylemon ⮀ ~/emacs ⮀ ⭠ master ⮀ ls
+     2  3  auto-complete  my-emacs-config.el  site-lisp  snippets  tomorrow-night-theme.el  tools
+     liwei@pylemon ⮀ ~/emacs ⮀ ⭠ master ⮀ gla
+     * e488f01 - (HEAD, master) add3 (5 seconds ago) <pylemon>
+     * 32d478e - add 2 (5 seconds ago) <pylemon>
+     | * 33eef50 - (fixbug) add3 (5 minutes ago) <pylemon>
+     | * 41fdc68 - add 2 (5 minutes ago) <pylemon>
+     | * 4b48192 - add 1 (5 minutes ago) <pylemon>
+     |/
+     * 2041623 - (origin/master, origin/HEAD) fixes auto-complete (10 hours ago) <pylemon>
+
+可以看到，执行 `cherry-pick` 后， git 将指定的 commit (不含第一个，包含最后一个) 应用到了 当前的 master 分支。
+执行完之后，可以删除掉 `fixbug` 分支。这样就可以很方便的从一个分支里面选取一部分提交合并到主分支里面去了。当然同样也会遇到
+需要merge的情况。和merege一样操作即可。
+
+
 在 github 中使用 service hooks
 ==============================
 
