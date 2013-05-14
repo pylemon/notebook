@@ -6,6 +6,7 @@
 
    sicp.rst
    django.rst
+   iefixes.rst
    git.rst
    emacs.rst
    linux.rst
