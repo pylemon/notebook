@@ -21,12 +21,14 @@ google了一番, SO上有人提到可以使用 jQuery 的 `$.trim(String)` 来�
 li 标签缩进错误
 ===============
 
-这个问题貌似在 IE8 IE9 firefox 下都存在, 具体表现为 所有的 LI 标签都会有个默认的 margin-left:40px;
+IE and Opera set the list's indention with margin-left.  Firefox and, I 
+believe, Konqueror/Safari use padding-left.  40px worth, to be exact.
 
-使用 iefixes.css 修复这个问题::
+do; ::
 
-    li {
-        margin-left: -40px;
+    ul {
+         margin: 0;
+         padding: 0;
     }
-      
 
+to remove all indention.
