@@ -1,4 +1,4 @@
-sicp 读书笔记
+SICP 读书笔记
 =============
 
 Lisp 与 Scheme

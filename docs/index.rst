@@ -5,6 +5,7 @@
    :maxdepth: 2
 
    sicp.rst
+   python-cookbook.rst
    django.rst
    iefixes.rst
    git.rst
