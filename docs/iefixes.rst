@@ -32,3 +32,27 @@ do; ::
     }
 
 to remove all indention.
+
+
+cross browser CSS opacity 跨浏览器CSS透明处理
+=============================================
+
+IE 和一些旧的浏览器 对透明的处理方式不一样, 解决方案 ::
+
+  .transparent_class {
+      /* IE 8 */
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    
+      /* IE 5-7 */
+      filter: alpha(opacity=50);
+    
+      /* Netscape */
+      -moz-opacity: 0.5;
+    
+      /* Safari 1.x */
+      -khtml-opacity: 0.5;
+    
+      /* Good browsers */
+      opacity: 0.5;
+  }
+
