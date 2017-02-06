@@ -1,0 +1,97 @@
+# 机器学习课程
+
+标签（空格分隔）： udacity 笔记 学习
+
+---
+
+[TOC]
+
+## Induction and Deduction
+* 监督学习 supervised learning 
+==> 总的来说就是通过一组数据 得到一个与事实无限接近函数
+在输入数据时 及时的获得反馈
+
+* Induction  归纳/函数逼近/泛化/bias
+太阳今天早上出来。昨天早上出来。 -> 太阳明天也会出来
+example -> general rules
+
+* 相反的是 Deduction  演绎/推理/逻辑编程
+general rules -> result
+
+## Unsupervised Learning
+* 无监督学习
+更多的是一种对input的描述与归纳总结
+只有数据 没有任何反馈和对数据的描述
+
+## Reinforcement Learning
+* 强化学习
+通过延迟奖赏进行的学习
+强化学习中，对学习效果的反馈通常需要在做出几步决策后得出。
+
+## 分类 和 回归
+分类和回归的区别在于输出
+
+* 分类  map input into some real number
+输出特定的数据，小的数据集
+x -> True
+图片 -> 女性
+输入 -> 标签
+
+* 回归 map input into continuous
+输出是连续的数据
+
+## Classification learning
+基本概念
+1. Instances (input)  实例, 照片的所有像素, 信用记录
+2. Concept (Function) 将输入映射到输出的函数
+3. Target Concept (Answer) 需要寻找到的 映射函数
+4. Hypothesis (All possible classification funcitons)
+5. Sample (Training Set)  [{Instance: True}, {Instance: False}]
+6. Candidate (Condidate Concept ?= Target Concept)
+7. Testing Set (Like Sample) 测试集 不能与 训练集 一样, 否则是作弊
+
+## Decision Trees
+Dating
+*input*:
+Restaurant prop
+*output*:
+enter or not
+
+Restaurant Props
+- Type | Italian, French
+- Atomsphere | Fancy, Casual
+- Occupied?
+- hot date?
+- Cost | number
+- Hungry?
+- Raning?
+
+算法:
+1. 选择最好的属性 (最好能把集合拆分成2类)
+2. 问过的问题
+3. 根据问题的答案继续
+4. GOTO 1, 直到集合剩下的元素只有1个
+
+## AND / OR / XOR
+xor 两边都为真时返回假 其他同or
+
+N-OR =>  Any
+决策树需要的节点数 = N, 我们说它需要的节点数是线性的.
+
+N-XOR => odd-Parity 
+节点数是 O(2^n), 指数增长.
+
+## node数量估算
+对于一个只有 true false 的决策树 
+如果用真值表来表示 真值表的行(所有可能的feature组合数量) 是2^n个
+所有这些值得到的结果数量组合数(叶子节点数量) 2^(2^n) 个 这是个非常大的数
+假设 n=6 那么 2^6=64 而 2^(2^6) = 18446744073709551616
+所以对于xor我们需要谨慎的估算可能的决策树节点数, 否则怎么都算不出来
+
+## ID3 算法
+
+### 信息熵
+熵是无序性（或不确定性）的度量指标。信息熵的单位是bit
+假设丢一枚硬币, 正面反面的概率分别是50% 那么丢硬币的结果的信息熵就是2bit
+如果硬币的正反面一样, 丢出的结果 概率分布就应该是100% 也就说信息熵就是1, 信息熵越大 系统的无序性就越强.
+
